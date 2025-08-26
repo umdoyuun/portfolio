@@ -14,7 +14,6 @@ const Header = () => {
     { name: 'About', href: '#about' },
     { name: 'Skills', href: '#skills' },
     { name: 'Projects', href: '#projects' },
-    { name: 'Experience', href: '#experience' },
     { name: 'Contact', href: '#contact' }
   ]
 
@@ -24,7 +23,7 @@ const Header = () => {
         <div className="flex items-center justify-between h-16">
           <Link href="/" className="flex items-center space-x-2 font-bold text-xl text-primary hover:text-primary/80 transition-colors">
             <Cpu className="h-6 w-6" />
-            <span className="hidden sm:block">EmbeddedDev</span>
+            <span className="hidden sm:block">Doyun Portflio</span>
           </Link>
 
           {/* Desktop Navigation */}

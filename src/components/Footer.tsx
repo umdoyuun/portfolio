@@ -1,4 +1,4 @@
-import { Github, Linkedin, Mail, Cpu, Heart } from 'lucide-react'
+import { Github, Mail, Cpu, Heart } from 'lucide-react'
 import Link from 'next/link'
 import { portfolioData } from '@/data/portfolio'
 
@@ -10,7 +10,6 @@ const Footer = () => {
     { name: 'About', href: '#about' },
     { name: 'Skills', href: '#skills' },
     { name: 'Projects', href: '#projects' },
-    { name: 'Experience', href: '#experience' },
     { name: 'Contact', href: '#contact' }
   ]
 
@@ -24,11 +23,6 @@ const Footer = () => {
       icon: <Github size={20} />,
       href: personal.github,
       label: 'GitHub'
-    },
-    {
-      icon: <Linkedin size={20} />,
-      href: personal.linkedin,
-      label: 'LinkedIn'
     }
   ]
 

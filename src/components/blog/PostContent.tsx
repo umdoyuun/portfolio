@@ -35,6 +35,11 @@ const PostContent = ({ post }: PostContentProps) => {
 
   const categoryInfo = getCategoryInfo(post.category);
 
+  // HTML 태그를 제거하는 함수
+  const stripHtml = (html: string): string => {
+    return html.replace(/<[^>]*>/g, '');
+  };
+
   // 간단한 HTML 태그를 처리하는 함수
   const formatContent = (content: string): string => {
     return content
@@ -109,7 +114,7 @@ const PostContent = ({ post }: PostContentProps) => {
                   글 요약
                 </h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">
-                  {post.description}
+                  {stripHtml(post.description)}
                 </p>
               </div>
             )}

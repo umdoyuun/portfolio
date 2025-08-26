@@ -79,6 +79,7 @@ module.exports = {
         'slide-right': 'slideRight 0.5s ease-out',
         'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
         'spin-slow': 'spin 20s linear infinite',
+        'skeleton-wave': 'skeleton-wave 1.6s ease-in-out infinite',
       },
       keyframes: {
         fadeIn: {
@@ -101,6 +102,11 @@ module.exports = {
           '0%': { transform: 'translateX(-20px)', opacity: '0' },
           '100%': { transform: 'translateX(0)', opacity: '1' },
         },
+        'skeleton-wave': {
+          '0%': { transform: 'translateX(-100%)' },
+          '50%': { transform: 'translateX(100%)' },
+          '100%': { transform: 'translateX(100%)' },
+        },
       },
       typography: {
         DEFAULT: {
@@ -111,6 +117,9 @@ module.exports = {
               color: 'inherit',
               textDecoration: 'underline',
               fontWeight: '500',
+              '&:hover': {
+                color: 'hsl(var(--primary))',
+              },
             },
             '[class~="lead"]': {
               color: 'inherit',
@@ -119,52 +128,115 @@ module.exports = {
               color: 'inherit',
               fontWeight: '600',
             },
-            'ol[type="A"]': {
-              '--list-counter-style': 'upper-alpha',
+            'h1, h2, h3, h4, h5, h6': {
+              color: 'inherit',
+              scrollMarginTop: '6rem',
             },
-            'ol[type="a"]': {
-              '--list-counter-style': 'lower-alpha',
+            code: {
+              color: 'inherit',
+              backgroundColor: 'hsl(var(--muted))',
+              padding: '0.25rem 0.375rem',
+              borderRadius: '0.25rem',
+              fontWeight: '500',
             },
-            'ol[type="A" s]': {
-              '--list-counter-style': 'upper-alpha',
+            'code::before': {
+              content: '""',
             },
-            'ol[type="a" s]': {
-              '--list-counter-style': 'lower-alpha',
+            'code::after': {
+              content: '""',
             },
-            'ol[type="I"]': {
-              '--list-counter-style': 'upper-roman',
+            pre: {
+              backgroundColor: 'hsl(var(--muted))',
+              border: '1px solid hsl(var(--border))',
             },
-            'ol[type="i"]': {
-              '--list-counter-style': 'lower-roman',
-            },
-            'ol[type="I" s]': {
-              '--list-counter-style': 'upper-roman',
-            },
-            'ol[type="i" s]': {
-              '--list-counter-style': 'lower-roman',
-            },
-            'ol[type="1"]': {
-              '--list-counter-style': 'decimal',
-            },
-            'ol > li': {
-              position: 'relative',
-            },
-            'ol > li::marker': {
-              fontWeight: '400',
-              color: 'var(--tw-prose-counters)',
-            },
-            'ul > li': {
-              position: 'relative',
-            },
-            'ul > li::marker': {
-              color: 'var(--tw-prose-bullets)',
+            blockquote: {
+              borderLeftColor: 'hsl(var(--border))',
             },
           },
         },
+      },
+      // 성능 최적화를 위한 유틸리티 클래스
+      willChange: {
+        'transform-opacity': 'transform, opacity',
+      },
+      // 접근성을 위한 포커스 스타일
+      focusRing: {
+        DEFAULT: '0 0 0 2px hsl(var(--primary))',
+        offset: '0 0 0 2px hsl(var(--background)), 0 0 0 4px hsl(var(--primary))',
       },
     },
   },
   plugins: [
     require('@tailwindcss/typography'),
+    // 커스텀 유틸리티 추가
+    function({ addUtilities, theme }) {
+      const newUtilities = {
+        // 성능 최적화 유틸리티
+        '.will-change-transform-opacity': {
+          'will-change': 'transform, opacity',
+        },
+        '.will-change-auto': {
+          'will-change': 'auto',
+        },
+        '.gpu-accelerated': {
+          'transform': 'translateZ(0)',
+          'backface-visibility': 'hidden',
+          'perspective': '1000px',
+        },
+        // 접근성 유틸리티
+        '.sr-only-focusable': {
+          position: 'absolute !important',
+          width: '1px !important',
+          height: '1px !important',
+          padding: '0 !important',
+          margin: '-1px !important',
+          overflow: 'hidden !important',
+          clip: 'rect(0, 0, 0, 0) !important',
+          whiteSpace: 'nowrap !important',
+          border: '0 !important',
+          '&:focus': {
+            position: 'static !important',
+            width: 'auto !important',
+            height: 'auto !important',
+            padding: 'inherit !important',
+            margin: 'inherit !important',
+            overflow: 'visible !important',
+            clip: 'auto !important',
+            whiteSpace: 'inherit !important',
+          },
+        },
+        // 스켈레톤 로더 유틸리티
+        '.skeleton-wave': {
+          position: 'relative',
+          overflow: 'hidden',
+          '&::after': {
+            content: '""',
+            position: 'absolute',
+            top: '0',
+            right: '0',
+            bottom: '0',
+            left: '0',
+            transform: 'translateX(-100%)',
+            background: `linear-gradient(
+              90deg,
+              transparent,
+              rgba(255, 255, 255, 0.2),
+              transparent
+            )`,
+            animation: 'skeleton-wave 1.6s ease-in-out infinite',
+          },
+        },
+        // 고대비 포커스 스타일
+        '.focus-visible-enhanced': {
+          '&:focus-visible': {
+            outline: '2px solid hsl(var(--primary))',
+            outlineOffset: '2px',
+            boxShadow: theme('focusRing.offset'),
+          },
+        },
+      }
+
+      addUtilities(newUtilities, ['responsive', 'hover', 'focus'])
+    },
   ],
 }

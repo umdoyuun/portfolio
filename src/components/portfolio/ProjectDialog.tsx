@@ -201,7 +201,7 @@ const ProjectDialog = ({ project, onClose }: ProjectDialogProps) => {
                 </div>
                 <div>
                   <blockquote className="text-muted-foreground leading-relaxed italic">
-                    "{project.retrospective}"
+                    &ldquo;{project.retrospective}&rdquo;
                   </blockquote>
                   <cite className="text-sm text-primary font-medium mt-2 block not-italic">
                     — {project.role}

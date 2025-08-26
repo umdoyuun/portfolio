@@ -1,0 +1,19 @@
+{
+  "name": "엄도윤 포트폴리오",
+  "short_name": "도윤 Portfolio",
+  "description": "임베디드/IoT 시스템 개발자 엄도윤의 포트폴리오 웹사이트",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "any",
+      "type": "image/x-icon"
+    }
+  ],
+  "theme_color": "#667eea",
+  "background_color": "#ffffff",
+  "display": "standalone",
+  "orientation": "portrait",
+  "scope": "/",
+  "start_url": "/",
+  "lang": "ko-KR"
+}

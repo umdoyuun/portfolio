@@ -18,13 +18,18 @@ import {
   Code,
   Trophy,
   BookOpen,
-  Zap
+  Zap,
+  Users,
+  Book,
+  Star,
+  ChevronDown,
+  ChevronUp
 } from 'lucide-react'
 import { personalData } from '@/data/personal'
-import Image from 'next/image'
 
 const AboutSection = () => {
   const [activeTab, setActiveTab] = useState('education')
+  const [expandedActivities, setExpandedActivities] = useState<{[key: number]: boolean}>({})
 
   // Statistics data
   const stats = [
@@ -91,9 +96,10 @@ const AboutSection = () => {
   ]
 
   const tabs = [
-    { id: 'education', label: '교육', icon: <GraduationCap className="h-4 w-4" /> },
-    { id: 'awards', label: '수상', icon: <Award className="h-4 w-4" /> },
-    { id: 'certifications', label: '자격증', icon: <FileCheck className="h-4 w-4" /> }
+    { id: 'education', label: 'Education', icon: <GraduationCap className="h-4 w-4" /> },
+    { id: 'awards', label: 'Awards', icon: <Award className="h-4 w-4" /> },
+    { id: 'certifications', label: 'Certifications', icon: <FileCheck className="h-4 w-4" /> },
+    { id: 'activities', label: 'Activities', icon: <Users className="h-4 w-4" /> }
   ]
 
 
@@ -107,42 +113,48 @@ const AboutSection = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.4 }}
-            className="space-y-4"
+            className="h-full overflow-y-auto scrollbar-thin scrollbar-track-transparent scrollbar-thumb-primary/30 hover:scrollbar-thumb-primary/50"
+            style={{ 
+              height: '500px',
+              paddingRight: '8px'
+            }}
           >
-            {personalData.education.map((edu, index) => (
-              <motion.div
-                key={edu.id}
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="relative pl-8 pb-6 border-l-2 border-primary/30 last:border-l-0 last:pb-0"
-              >
-                <div className="absolute -left-2 top-0 w-4 h-4 bg-primary rounded-full border-4 border-background"></div>
-                <div className="bg-card/50 backdrop-blur-sm rounded-lg p-4 border border-border hover:shadow-lg transition-all duration-300">
-                  <div className="flex items-center justify-between mb-2">
-                    <h4 className="font-semibold text-foreground">{edu.institution}</h4>
-                    <span className={`px-2 py-1 text-xs rounded-full ${
-                      edu.status === '진행중' 
-                        ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200' 
-                        : 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200'
-                    }`}>
-                      {edu.status}
-                    </span>
-                  </div>
-                  <p className="text-primary font-medium mb-1">{edu.degree}</p>
-                  <p className="text-sm text-muted-foreground mb-2 flex items-center">
-                    <Calendar className="h-4 w-4 mr-1" />
-                    {edu.period}
-                  </p>
-                  <p className="text-sm text-muted-foreground mb-2">{edu.description}</p>
-                  {edu.gpa && (
-                    <p className="text-sm font-medium text-foreground">
-                      학점: {edu.gpa}
+            <div className="space-y-4 pr-2 pb-4">
+              {personalData.education.map((edu, index) => (
+                <motion.div
+                  key={edu.id}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  className="relative pl-8 pb-6 border-l-2 border-primary/30 last:border-l-0 last:pb-0"
+                >
+                  <div className="absolute -left-2 top-0 w-4 h-4 bg-primary rounded-full border-4 border-background"></div>
+                  <div className="bg-card/50 backdrop-blur-sm rounded-lg p-4 border border-border hover:shadow-lg transition-all duration-300">
+                    <div className="flex items-center justify-between mb-2">
+                      <h4 className="font-semibold text-foreground">{edu.institution}</h4>
+                      <span className={`px-2 py-1 text-xs rounded-full ${
+                        edu.status === '진행중' 
+                          ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200' 
+                          : 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200'
+                      }`}>
+                        {edu.status}
+                      </span>
+                    </div>
+                    <p className="text-primary font-medium mb-1">{edu.degree}</p>
+                    <p className="text-sm text-muted-foreground mb-2 flex items-center">
+                      <Calendar className="h-4 w-4 mr-1" />
+                      {edu.period}
                     </p>
-                  )}
-                </div>
-              </motion.div>
-            ))}
+                    <p className="text-sm text-muted-foreground mb-2">{edu.description}</p>
+                    {edu.gpa && (
+                      <p className="text-sm font-medium text-foreground">
+                        학점: {edu.gpa}
+                      </p>
+                    )}
+                  </div>
+                </motion.div>
+              ))}
+            </div>
           </motion.div>
         )
       
@@ -154,31 +166,37 @@ const AboutSection = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.4 }}
-            className="space-y-4"
+            className="h-full overflow-y-auto scrollbar-thin scrollbar-track-transparent scrollbar-thumb-primary/30 hover:scrollbar-thumb-primary/50"
+            style={{ 
+              height: '500px',
+              paddingRight: '8px'
+            }}
           >
-            {personalData.awards.map((award, index) => (
-              <motion.div
-                key={award.id}
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="relative pl-8 pb-6 border-l-2 border-yellow-400/30 last:border-l-0 last:pb-0"
-              >
-                <div className="absolute -left-2 top-0 w-4 h-4 bg-yellow-500 rounded-full border-4 border-background">
-                  <Trophy className="h-2 w-2 text-white absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" />
-                </div>
-                <div className="bg-gradient-to-r from-yellow-50 to-amber-50 dark:from-yellow-900/20 dark:to-amber-900/20 rounded-lg p-4 border border-yellow-200/50 dark:border-yellow-700/50 hover:shadow-lg transition-all duration-300">
-                  <div className="flex items-start justify-between mb-2">
-                    <h4 className="font-semibold text-foreground">{award.title}</h4>
-                    <span className="text-xs text-muted-foreground bg-white/70 dark:bg-black/20 px-2 py-1 rounded">
-                      {award.date}
-                    </span>
+            <div className="space-y-4 pr-2 pb-4">
+              {personalData.awards.map((award, index) => (
+                <motion.div
+                  key={award.id}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  className="relative pl-8 pb-6 border-l-2 border-yellow-400/30 last:border-l-0 last:pb-0"
+                >
+                  <div className="absolute -left-2 top-0 w-4 h-4 bg-yellow-500 rounded-full border-4 border-background">
+                    <Trophy className="h-2 w-2 text-white absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" />
                   </div>
-                  <p className="text-sm font-medium text-primary mb-2">{award.organization}</p>
-                  <p className="text-sm text-muted-foreground">{award.description}</p>
-                </div>
-              </motion.div>
-            ))}
+                  <div className="bg-gradient-to-r from-yellow-50 to-amber-50 dark:from-yellow-900/20 dark:to-amber-900/20 rounded-lg p-4 border border-yellow-200/50 dark:border-yellow-700/50 hover:shadow-lg transition-all duration-300">
+                    <div className="flex items-start justify-between mb-2">
+                      <h4 className="font-semibold text-foreground">{award.title}</h4>
+                      <span className="text-xs text-muted-foreground bg-white/70 dark:bg-black/20 px-2 py-1 rounded">
+                        {award.date}
+                      </span>
+                    </div>
+                    <p className="text-sm font-medium text-primary mb-2">{award.organization}</p>
+                    <p className="text-sm text-muted-foreground">{award.description}</p>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
           </motion.div>
         )
       
@@ -190,35 +208,170 @@ const AboutSection = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.4 }}
-            className="space-y-4"
+            className="h-full overflow-y-auto scrollbar-thin scrollbar-track-transparent scrollbar-thumb-primary/30 hover:scrollbar-thumb-primary/50"
+            style={{ 
+              height: '500px',
+              paddingRight: '8px'
+            }}
           >
-            {personalData.certifications.map((cert, index) => (
+            <div className="space-y-4 pr-2 pb-4">
+              {personalData.certifications.map((cert, index) => (
+                <motion.div
+                  key={cert.id}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  className="bg-card/50 backdrop-blur-sm rounded-lg p-4 border border-border hover:shadow-lg transition-all duration-300 hover:border-primary/50"
+                >
+                  <div className="flex items-start justify-between mb-2">
+                    <div className="flex items-center space-x-2">
+                      <div className="p-2 bg-primary/10 rounded-lg">
+                        <FileCheck className="h-4 w-4 text-primary" />
+                      </div>
+                      <div>
+                        <h4 className="font-semibold text-foreground">{cert.name}</h4>
+                        <p className="text-sm text-primary">{cert.organization}</p>
+                      </div>
+                    </div>
+                    <span className="text-xs text-muted-foreground bg-card border rounded px-2 py-1">
+                      {cert.date}
+                    </span>
+                  </div>
+                  <p className="text-xs text-muted-foreground mt-2">
+                    자격번호: {cert.number}
+                  </p>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+        )
+
+      case 'activities':
+        const getActivityIcon = (iconType: string) => {
+          switch (iconType) {
+            case 'users': return <Users className="h-4 w-4 text-primary" />
+            case 'book': return <Book className="h-4 w-4 text-primary" />
+            case 'graduation-cap': return <GraduationCap className="h-4 w-4 text-primary" />
+            case 'star': return <Star className="h-4 w-4 text-primary" />
+            default: return <Users className="h-4 w-4 text-primary" />
+          }
+        }
+
+        const getActivityColor = (type: string) => {
+          switch (type) {
+            case '동아리': return 'from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 border-blue-200/50 dark:border-blue-700/50'
+            case '스터디': return 'from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 border-green-200/50 dark:border-green-700/50'
+            case '멘토링': return 'from-purple-50 to-violet-50 dark:from-purple-900/20 dark:to-violet-900/20 border-purple-200/50 dark:border-purple-700/50'
+            case '지역활동': return 'from-orange-50 to-amber-50 dark:from-orange-900/20 dark:to-amber-900/20 border-orange-200/50 dark:border-orange-700/50'
+            default: return 'from-gray-50 to-slate-50 dark:from-gray-900/20 dark:to-slate-900/20 border-gray-200/50 dark:border-gray-700/50'
+          }
+        }
+
+        const toggleActivityExpansion = (activityId: number) => {
+          setExpandedActivities(prev => ({
+            ...prev,
+            [activityId]: !prev[activityId]
+          }))
+        }
+
+        return (
+          <motion.div
+            key="activities"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.4 }}
+            className="h-full overflow-y-auto scrollbar-thin scrollbar-track-transparent scrollbar-thumb-primary/30 hover:scrollbar-thumb-primary/50"
+            style={{ 
+              height: '500px',
+              paddingRight: '8px'
+            }}
+          >
+            <div className="space-y-4 pr-2 pb-4">
+              {personalData.activities.map((activity, index) => (
               <motion.div
-                key={cert.id}
+                key={activity.id}
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="bg-card/50 backdrop-blur-sm rounded-lg p-4 border border-border hover:shadow-lg transition-all duration-300 hover:border-primary/50"
+                className={`bg-gradient-to-r ${getActivityColor(activity.type)} rounded-lg p-4 border hover:shadow-lg transition-all duration-300 border-l-4 border-l-primary`}
               >
-                <div className="flex items-start justify-between mb-2">
-                  <div className="flex items-center space-x-2">
-                    <div className="p-2 bg-primary/10 rounded-lg">
-                      <FileCheck className="h-4 w-4 text-primary" />
-                    </div>
-                    <div>
-                      <h4 className="font-semibold text-foreground">{cert.name}</h4>
-                      <p className="text-sm text-primary">{cert.organization}</p>
-                    </div>
+                <div className="flex items-start space-x-4">
+                  <div className="p-2 bg-primary/10 rounded-lg flex-shrink-0">
+                    {getActivityIcon(activity.icon)}
                   </div>
-                  <span className="text-xs text-muted-foreground bg-card border rounded px-2 py-1">
-                    {cert.date}
-                  </span>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-start justify-between mb-2">
+                      <div>
+                        <h4 className="font-semibold text-foreground text-base">{activity.title}</h4>
+                        <p className="text-sm text-primary font-medium">{activity.role}</p>
+                        <p className="text-xs text-muted-foreground">{activity.organization}</p>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <span className="text-xs text-muted-foreground bg-white/70 dark:bg-black/20 px-2 py-1 rounded flex-shrink-0">
+                          {activity.period}
+                        </span>
+                        {'isGroup' in activity && activity.isGroup && (
+                          <button
+                            onClick={() => toggleActivityExpansion(activity.id)}
+                            className="flex items-center text-primary hover:text-primary/80 transition-colors"
+                          >
+                            {expandedActivities[activity.id] ? 
+                              <ChevronUp className="h-4 w-4" /> : 
+                              <ChevronDown className="h-4 w-4" />
+                            }
+                          </button>
+                        )}
+                      </div>
+                    </div>
+                    <p className="text-sm text-muted-foreground mb-3 leading-relaxed">
+                      {activity.description}
+                    </p>
+
+                    {/* Sub-activities for grouped items */}
+                    {'isGroup' in activity && activity.isGroup && expandedActivities[activity.id] && 'subActivities' in activity && activity.subActivities && (
+                      <div className="mb-3 space-y-2">
+                        <h5 className="text-sm font-medium text-foreground">세부 활동:</h5>
+                        {activity.subActivities.map((sub, subIndex: number) => (
+                          <div key={subIndex} className="bg-white/50 dark:bg-black/20 rounded p-3 ml-2 border-l-2 border-primary/30">
+                            <div className="flex items-start justify-between mb-1">
+                              <h6 className="text-sm font-medium text-foreground">{sub.title}</h6>
+                              <span className="text-xs text-muted-foreground">{sub.period}</span>
+                            </div>
+                            <p className="text-xs text-muted-foreground mb-2">{sub.description}</p>
+                            {sub.achievements && sub.achievements.length > 0 && (
+                              <ul className="text-xs text-muted-foreground space-y-0.5">
+                                {sub.achievements.map((achievement, achIndex: number) => (
+                                  <li key={achIndex} className="flex items-start">
+                                    <span className="text-primary mr-1 text-[10px]">•</span>
+                                    <span>{achievement}</span>
+                                  </li>
+                                ))}
+                              </ul>
+                            )}
+                          </div>
+                        ))}
+                      </div>
+                    )}
+
+                    {activity.achievements && activity.achievements.length > 0 && (
+                      <div className="space-y-1">
+                        <p className="text-xs font-medium text-foreground mb-1">주요 성과:</p>
+                        <ul className="text-xs text-muted-foreground space-y-0.5">
+                          {activity.achievements.map((achievement, idx) => (
+                            <li key={idx} className="flex items-start">
+                              <span className="text-primary mr-1">•</span>
+                              <span>{achievement}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+                  </div>
                 </div>
-                <p className="text-xs text-muted-foreground mt-2">
-                  자격번호: {cert.number}
-                </p>
-              </motion.div>
-            ))}
+                </motion.div>
+              ))}
+            </div>
           </motion.div>
         )
       
@@ -255,38 +408,39 @@ const AboutSection = () => {
             className="lg:col-span-1"
           >
             {/* Profile Card */}
-            <Card className="overflow-hidden border-0 bg-gradient-to-br from-card/80 to-card/60 backdrop-blur-lg shadow-xl hover:shadow-2xl transition-all duration-500">
-              <CardContent className="p-0">
+            <Card className="overflow-hidden border-0 bg-gradient-to-br from-card/80 to-card/60 backdrop-blur-lg shadow-xl hover:shadow-2xl transition-all duration-500 h-[932px]">
+              <CardContent className="p-0 h-full flex flex-col">
                 {/* Profile Photo Section */}
                 <div className="relative">
-                  <div className="aspect-square bg-gradient-to-br from-primary/20 to-blue-500/20 flex items-center justify-center">
+                  <div className="h-72 bg-gradient-to-br from-primary/20 to-blue-500/20 flex items-center justify-center">
                     <div className="w-32 h-32 bg-gradient-to-br from-primary to-blue-500 rounded-full flex items-center justify-center shadow-lg">
                       <User className="h-16 w-16 text-white" />
                     </div>
                   </div>
                   <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
-                  <div className="absolute bottom-4 left-4 right-4">
-                    <h3 className="text-xl font-bold text-white mb-1">{personalData.name}</h3>
-                    <p className="text-primary-foreground/90 text-sm">{personalData.title}</p>
+                  <div className="absolute bottom-6 left-6 right-6">
+                    <h3 className="text-2xl font-bold text-white mb-2">{personalData.name}</h3>
+                    <p className="text-primary-foreground/90 text-base">{personalData.title}</p>
                   </div>
                 </div>
 
                 {/* Contact Information */}
-                <div className="p-6 space-y-4">
-                  {contactInfo.map((info, index) => (
+                <div className="p-6 flex-1 overflow-y-auto flex flex-col">
+                  <div className="flex flex-col justify-evenly h-full space-y-4">
+                    {contactInfo.map((info, index) => (
                     <motion.div
                       key={index}
                       initial={{ opacity: 0, y: 10 }}
                       whileInView={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.4, delay: index * 0.1 }}
                       viewport={{ once: true }}
-                      className="flex items-center space-x-3 p-3 rounded-lg bg-secondary/30 hover:bg-secondary/50 transition-colors duration-200 group"
+                      className="flex items-center space-x-3 p-4 rounded-lg bg-secondary/30 hover:bg-secondary/50 transition-colors duration-200 group"
                     >
                       <div className="text-primary group-hover:text-primary/80 transition-colors">
                         {info.icon}
                       </div>
                       <div className="flex-1 min-w-0">
-                        <p className="text-xs text-muted-foreground uppercase tracking-wide">
+                        <p className="text-sm text-muted-foreground uppercase tracking-wide font-medium">
                           {info.label}
                         </p>
                         {info.type === 'link' ? (
@@ -294,32 +448,33 @@ const AboutSection = () => {
                             href={info.href}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-sm text-foreground hover:text-primary transition-colors font-medium truncate block"
+                            className="text-base text-foreground hover:text-primary transition-colors font-medium truncate block"
                           >
                             {info.value}
                           </a>
                         ) : info.type === 'email' ? (
                           <a
                             href={`mailto:${info.value}`}
-                            className="text-sm text-foreground hover:text-primary transition-colors font-medium truncate block"
+                            className="text-base text-foreground hover:text-primary transition-colors font-medium truncate block"
                           >
                             {info.value}
                           </a>
                         ) : info.type === 'tel' ? (
                           <a
                             href={`tel:${info.value}`}
-                            className="text-sm text-foreground hover:text-primary transition-colors font-medium"
+                            className="text-base text-foreground hover:text-primary transition-colors font-medium"
                           >
                             {info.value}
                           </a>
                         ) : (
-                          <p className="text-sm text-foreground font-medium">
+                          <p className="text-base text-foreground font-medium">
                             {info.value}
                           </p>
                         )}
                       </div>
                     </motion.div>
-                  ))}
+                    ))}
+                  </div>
                 </div>
               </CardContent>
             </Card>
@@ -353,10 +508,10 @@ const AboutSection = () => {
             </Card>
 
             {/* Tabbed Content */}
-            <Card className="border-0 bg-gradient-to-br from-card/80 to-card/60 backdrop-blur-lg shadow-xl overflow-hidden">
-              <CardContent className="p-0">
+            <Card className="border-0 bg-gradient-to-br from-card/80 to-card/60 backdrop-blur-lg shadow-xl overflow-hidden h-[700px] flex flex-col">
+              <CardContent className="p-0 flex-1 flex flex-col">
                 {/* Tab Navigation */}
-                <div className="flex border-b border-border">
+                <div className="flex border-b border-border flex-shrink-0">
                   {tabs.map((tab) => (
                     <button
                       key={tab.id}
@@ -374,7 +529,7 @@ const AboutSection = () => {
                 </div>
 
                 {/* Tab Content */}
-                <div className="p-8 min-h-[400px]">
+                <div className="flex-1 p-8 overflow-hidden">
                   {renderTabContent()}
                 </div>
               </CardContent>
@@ -438,7 +593,7 @@ const AboutSection = () => {
                 </div>
               </div>
               <blockquote className="text-xl md:text-2xl text-foreground font-medium italic mb-4 leading-relaxed">
-                "혁신은 기술의 경계를 넘어서는 창의적인 사고에서 시작됩니다"
+                &ldquo;혁신은 기술의 경계를 넘어서는 창의적인 사고에서 시작됩니다&rdquo;
               </blockquote>
               <p className="text-muted-foreground">
                 — 임베디드 시스템 개발에 대한 저의 철학

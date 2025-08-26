@@ -1,0 +1,19 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://portfolio-doyun.vercel.app/sitemap.xml
+
+# Disallow specific paths (if any)
+# Disallow: /admin
+# Disallow: /private
+
+# Allow search engines to crawl all content
+Allow: /
+Allow: /about
+Allow: /projects
+Allow: /blog
+Allow: /contact
+
+# Crawl-delay (optional, in seconds)
+Crawl-delay: 1

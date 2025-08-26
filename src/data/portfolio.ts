@@ -1,14 +1,13 @@
 export const portfolioData = {
   personal: {
-    name: "임베디드 개발자",
+    name: "엄도윤",
     title: "Embedded/IoT Systems Developer",
     subtitle: "하드웨어와 소프트웨어의 융합을 통한 혁신적인 IoT 솔루션 개발",
     bio: "마이크로컨트롤러부터 IoT 클라우드 플랫폼까지, 전체 임베디드 시스템 스택에 대한 깊이 있는 이해를 바탕으로 현실적이고 효율적인 솔루션을 제공합니다.",
-    email: "contact@embedded-dev.com",
-    phone: "+82-10-0000-0000",
-    location: "Seoul, Korea",
-    github: "https://github.com/embedded-dev",
-    linkedin: "https://linkedin.com/in/embedded-dev"
+    email: "tkdtlr1998@naver.com",
+    phone: "+82-10-3996-6258",
+    location: "Icheon-si, Gyeonggi-do, Korea",
+    github: "https://github.com/embedded-dev"
   },
   
   skills: {

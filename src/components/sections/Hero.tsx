@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { ChevronDown, Cpu, Microchip, Zap, Github, Linkedin, Mail } from 'lucide-react'
+import { ChevronDown, Cpu, Microchip, Zap, Github, Mail } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { portfolioData } from '@/data/portfolio'
 
@@ -165,15 +165,6 @@ const Hero = () => {
               whileTap={{ scale: 0.95 }}
             >
               <Github className="h-6 w-6 text-muted-foreground group-hover:text-primary transition-colors" />
-            </motion.a>
-            <motion.a 
-              href={personal.linkedin}
-              className="group p-3 rounded-full bg-background/80 backdrop-blur-sm border border-border hover:border-primary/50 transition-all duration-300"
-              aria-label="LinkedIn Profile"
-              whileHover={{ scale: 1.1, y: -2 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <Linkedin className="h-6 w-6 text-muted-foreground group-hover:text-primary transition-colors" />
             </motion.a>
             <motion.a 
               href={`mailto:${personal.email}`}

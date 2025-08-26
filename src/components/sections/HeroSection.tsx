@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback, useMemo } from 'react'
 import { motion } from 'framer-motion'
 import { ChevronDown, Github, Instagram, Mail, Cpu, Zap, Wifi, Shield } from 'lucide-react'
 import { personalData } from '@/data/personal'
@@ -10,17 +10,17 @@ const HeroSection = () => {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isDeleting, setIsDeleting] = useState(false)
 
-  // 타이핑 애니메이션용 텍스트
-  const typewriterTexts = [
+  // 타이핑 애니메이션용 텍스트 (메모이제이션)
+  const typewriterTexts = useMemo(() => [
     "임베디드/IoT 소프트웨어 개발자",
     "하드웨어와 소프트웨어의 경계를 넘나드는",
     "Matter Protocol 전문가",
     "SmartThings 연동 개발자",
     "Real-time Systems 엔지니어"
-  ]
+  ], [])
 
-  // 키워드 태그
-  const keywordTags = [
+  // 키워드 태그 (메모이제이션)
+  const keywordTags = useMemo(() => [
     "Matter Protocol",
     "SmartThings", 
     "Real-time Systems",
@@ -29,17 +29,17 @@ const HeroSection = () => {
     "Arduino/ESP32",
     "MQTT/CoAP",
     "Sensor Networks"
-  ]
+  ], [])
 
-  // 플로팅 아이콘 데이터
-  const floatingIcons = [
-    { icon: Cpu, delay: 0, x: 10, y: 20 },
-    { icon: Zap, delay: 1, x: 85, y: 15 },
-    { icon: Wifi, delay: 2, x: 20, y: 70 },
-    { icon: Shield, delay: 1.5, x: 90, y: 80 }
-  ]
+  // 플로팅 아이콘 데이터 (메모이제이션)
+  const floatingIcons = useMemo(() => [
+    { icon: Cpu, delay: 0, x: 10, y: 20, label: 'CPU 프로세서' },
+    { icon: Zap, delay: 1, x: 85, y: 15, label: '고성능 처리' },
+    { icon: Wifi, delay: 2, x: 20, y: 70, label: '무선 통신' },
+    { icon: Shield, delay: 1.5, x: 90, y: 80, label: '보안' }
+  ], [])
 
-  // 타이핑 애니메이션 효과
+  // 타이핑 애니메이션 효과 (useCallback으로 최적화)
   useEffect(() => {
     const timeout = setTimeout(() => {
       const current = typewriterTexts[currentIndex]
@@ -65,8 +65,8 @@ const HeroSection = () => {
     return () => clearTimeout(timeout)
   }, [currentText, currentIndex, isDeleting, typewriterTexts])
 
-  // 부드러운 스크롤 함수
-  const scrollToSection = (sectionId: string) => {
+  // 부드러운 스크롤 함수 (useCallback으로 최적화)
+  const scrollToSection = useCallback((sectionId: string) => {
     const element = document.getElementById(sectionId)
     if (element) {
       element.scrollIntoView({ 
@@ -74,15 +74,33 @@ const HeroSection = () => {
         block: 'start'
       })
     }
-  }
+  }, [])
+
+  // 키보드 이벤트 핸들러
+  const handleKeyPress = useCallback((e: React.KeyboardEvent, action: () => void) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault()
+      action()
+    }
+  }, [])
 
   return (
-    <section id="hero" className="min-h-screen relative overflow-hidden bg-gradient-to-br from-background via-background to-muted/20">
+    <section 
+      id="hero" 
+      className="min-h-screen relative overflow-hidden bg-gradient-to-br from-background via-background to-muted/20"
+      aria-label="메인 소개 섹션"
+    >
       
       {/* 배경 패턴 */}
-      <div className="absolute inset-0 opacity-5">
+      <div className="absolute inset-0 opacity-5" aria-hidden="true">
         <div className="absolute top-0 left-0 w-full h-full">
-          <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+          <svg 
+            width="100%" 
+            height="100%" 
+            xmlns="http://www.w3.org/2000/svg"
+            aria-hidden="true"
+            focusable="false"
+          >
             <defs>
               <pattern id="circuit" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse">
                 <circle cx="50" cy="50" r="2" fill="currentColor" className="text-primary"/>
@@ -114,8 +132,10 @@ const HeroSection = () => {
             repeat: Infinity,
             ease: "easeInOut"
           }}
+          aria-hidden="true"
+          role="presentation"
         >
-          <item.icon size={32} />
+          <item.icon size={32} aria-label={item.label} />
         </motion.div>
       ))}
 
@@ -133,7 +153,9 @@ const HeroSection = () => {
               transition={{ duration: 0.8, ease: "easeOut" }}
               className="space-y-2"
             >
-              <p className="text-lg text-muted-foreground">안녕하세요, 저는</p>
+              <p className="text-lg text-muted-foreground" role="text">
+                안녕하세요, 저는
+              </p>
               <h1 className="text-5xl md:text-7xl font-bold text-foreground">
                 {personalData.name}
               </h1>
@@ -145,22 +167,31 @@ const HeroSection = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
               className="h-16 md:h-20"
+              role="text"
+              aria-live="polite"
+              aria-label="직업 소개"
             >
               <h2 className="text-2xl md:text-3xl font-semibold text-primary leading-tight">
                 {currentText}
-                <span className="animate-pulse">|</span>
+                <span 
+                  className="animate-pulse" 
+                  aria-hidden="true"
+                >
+                  |
+                </span>
               </h2>
             </motion.div>
 
             {/* 설명 */}
-            <motion.p
+            <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.6, ease: "easeOut" }}
-              className="text-lg text-muted-foreground max-w-xl leading-relaxed lg:max-w-2xl"
             >
-              {personalData.bio}
-            </motion.p>
+              <p className="text-lg text-muted-foreground max-w-xl leading-relaxed lg:max-w-2xl">
+                {personalData.bio}
+              </p>
+            </motion.div>
 
             {/* 키워드 태그 */}
             <motion.div
@@ -168,6 +199,8 @@ const HeroSection = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.9, ease: "easeOut" }}
               className="flex flex-wrap gap-3"
+              role="list"
+              aria-label="전문 기술 태그"
             >
               {keywordTags.map((tag, index) => (
                 <motion.span
@@ -180,6 +213,7 @@ const HeroSection = () => {
                     ease: "easeOut" 
                   }}
                   className="px-4 py-2 bg-primary/10 text-primary rounded-full text-sm font-medium border border-primary/20 hover:bg-primary/20 transition-colors duration-300"
+                  role="listitem"
                 >
                   {tag}
                 </motion.span>
@@ -195,12 +229,15 @@ const HeroSection = () => {
             >
               <button
                 onClick={() => scrollToSection('portfolio')}
-                className="group px-8 py-4 bg-primary text-primary-foreground rounded-lg font-semibold text-lg hover:bg-primary/90 transition-all duration-300 hover:shadow-lg hover:shadow-primary/25 flex items-center justify-center space-x-2"
+                onKeyDown={(e) => handleKeyPress(e, () => scrollToSection('portfolio'))}
+                className="group px-8 py-4 bg-primary text-primary-foreground rounded-lg font-semibold text-lg hover:bg-primary/90 transition-all duration-300 hover:shadow-lg hover:shadow-primary/25 flex items-center justify-center space-x-2 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+                aria-label="프로젝트 포트폴리오 섹션으로 이동"
               >
                 <span>프로젝트 보기</span>
                 <motion.div
                   animate={{ x: [0, 5, 0] }}
                   transition={{ duration: 1.5, repeat: Infinity }}
+                  aria-hidden="true"
                 >
                   <ChevronDown className="w-5 h-5 rotate-[-90deg]" />
                 </motion.div>
@@ -208,7 +245,9 @@ const HeroSection = () => {
               
               <button
                 onClick={() => scrollToSection('contact')}
-                className="px-8 py-4 bg-transparent border-2 border-primary text-primary rounded-lg font-semibold text-lg hover:bg-primary hover:text-primary-foreground transition-all duration-300 hover:shadow-lg"
+                onKeyDown={(e) => handleKeyPress(e, () => scrollToSection('contact'))}
+                className="px-8 py-4 bg-transparent border-2 border-primary text-primary rounded-lg font-semibold text-lg hover:bg-primary hover:text-primary-foreground transition-all duration-300 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+                aria-label="연락처 섹션으로 이동"
               >
                 연락하기
               </button>
@@ -220,34 +259,42 @@ const HeroSection = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 1.5, ease: "easeOut" }}
               className="flex items-center space-x-6 pt-4"
+              role="list"
+              aria-label="소셜 미디어 링크"
             >
               <a
                 href={personalData.social.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-3 rounded-full text-muted-foreground hover:text-foreground hover:bg-accent transition-all duration-300 group"
+                className="p-3 rounded-full text-muted-foreground hover:text-foreground hover:bg-accent transition-all duration-300 group focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+                aria-label="GitHub 프로필 새 창에서 열기"
+                role="listitem"
               >
-                <Github size={24} />
+                <Github size={24} aria-hidden="true" />
               </a>
               <a
                 href={personalData.social.instagram}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-3 rounded-full text-muted-foreground hover:text-pink-500 hover:bg-accent transition-all duration-300"
+                className="p-3 rounded-full text-muted-foreground hover:text-pink-500 hover:bg-accent transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+                aria-label="Instagram 프로필 새 창에서 열기"
+                role="listitem"
               >
-                <Instagram size={24} />
+                <Instagram size={24} aria-hidden="true" />
               </a>
               <a
                 href={`mailto:${personalData.contact.email}`}
-                className="p-3 rounded-full text-muted-foreground hover:text-primary hover:bg-accent transition-all duration-300"
+                className="p-3 rounded-full text-muted-foreground hover:text-primary hover:bg-accent transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+                aria-label={`${personalData.contact.email}로 이메일 보내기`}
+                role="listitem"
               >
-                <Mail size={24} />
+                <Mail size={24} aria-hidden="true" />
               </a>
             </motion.div>
           </div>
 
           {/* 오른쪽: 비주얼 요소 */}
-          <div className="relative hidden lg:block order-first lg:order-last">
+          <div className="relative hidden lg:block order-first lg:order-last" aria-hidden="true">
             <motion.div
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -296,12 +343,17 @@ const HeroSection = () => {
         transition={{ duration: 0.8, delay: 2, ease: "easeOut" }}
         className="absolute bottom-8 left-1/2 transform -translate-x-1/2 cursor-pointer"
         onClick={() => scrollToSection('about')}
+        onKeyDown={(e) => handleKeyPress(e, () => scrollToSection('about'))}
+        tabIndex={0}
+        role="button"
+        aria-label="다음 섹션으로 스크롤"
       >
-        <div className="flex flex-col items-center space-y-2 text-muted-foreground hover:text-primary transition-colors duration-300">
+        <div className="flex flex-col items-center space-y-2 text-muted-foreground hover:text-primary transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2">
           <span className="text-sm font-medium">스크롤</span>
           <motion.div
             animate={{ y: [0, 8, 0] }}
             transition={{ duration: 1.5, repeat: Infinity }}
+            aria-hidden="true"
           >
             <ChevronDown size={24} />
           </motion.div>

@@ -7,7 +7,6 @@ export interface PersonalInfo {
   phone: string;
   location: string;
   github: string;
-  linkedin: string;
 }
 
 export interface Skill {
@@ -35,13 +34,6 @@ export interface Project {
   year: number;
 }
 
-export interface Experience {
-  company: string;
-  position: string;
-  period: string;
-  description: string;
-  achievements: string[];
-}
 
 export interface Education {
   school: string;
@@ -72,7 +64,6 @@ export interface PortfolioData {
   personal: PersonalInfo;
   skills: SkillCategory;
   projects: Project[];
-  experience: Experience[];
   education: Education[];
   certifications: Certification[];
   publications: Publication[];

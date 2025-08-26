@@ -46,9 +46,15 @@ const PostList = ({
     return blogCategories.find(cat => cat.id === categoryId) || blogCategories.find(cat => cat.id === 'etc')!;
   };
 
+  // HTML 태그를 제거한 후 텍스트를 자르는 함수
+  const stripHtml = (html: string): string => {
+    return html.replace(/<[^>]*>/g, '');
+  };
+
   const truncateText = (text: string, maxLength: number = 120): string => {
-    if (text.length <= maxLength) return text;
-    return text.substring(0, maxLength) + '...';
+    const cleanText = stripHtml(text);
+    if (cleanText.length <= maxLength) return cleanText;
+    return cleanText.substring(0, maxLength) + '...';
   };
 
   if (isLoading) {

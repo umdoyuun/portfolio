@@ -182,7 +182,7 @@ const projectsData = [
 export const personalData = {
   // 기본 정보
   name: "엄도윤",
-  nameEn: "Eom Doyoon", 
+  nameEn: "Eom Doyun", 
   title: "Embedded/IoT Systems Developer",
   subtitle: "삼성 청년 SW·AI 아카데미 12기 수료생",
   bio: "안녕하세요! 문제해결 능력과 사용자 중심의 소프트웨어 개발에 열정을 가진 개발자 엄도윤입니다.\n\n다양한 IoT 서비스와 AI 기술을 활용한 프로젝트를 통해 하드웨어와 소프트웨어의 경계를 넘나드는 통합적 사고력을 기르고 있습니다. 특히 제한된 리소스 환경에서의 성능 최적화와 사용자 경험 개선에 관심이 많으며, 실제 문제를 해결하는 실용적인 솔루션 개발에 집중하고 있습니다.",
@@ -191,7 +191,7 @@ export const personalData = {
   contact: {
     phone: "010-3996-6258",
     email: "tkdtlr1998@naver.com",
-    location: "대한민국 서울"
+    location: "대한민국 경기도 이천"
   },
 
   // 소셜 링크
@@ -291,6 +291,107 @@ export const personalData = {
       organization: "수원대학교 정보통신학과",
       date: "2023.11",
       description: "로봇경진대회 3위 입상"
+    }
+  ],
+
+  // 활동 이력
+  activities: [
+    {
+      id: 1,
+      type: "지역활동",
+      icon: "star",
+      title: "이천 청년 축제 기획단",
+      role: "홍보기획팀 부팀장",
+      organization: "이천시",
+      period: "2025.08.02 ~ 2025.09.27",
+      description: "축제 홍보 기획, 홍보 활동 및 SNS(Instagram) 계정 운영",
+      achievements: ["축제 홍보 전략 수립", "SNS 콘텐츠 기획 및 운영", "지역 청년 네트워킹"]
+    },
+    {
+      id: 2,
+      type: "스터디",
+      icon: "book",
+      title: "SSAFY 스터디 그룹",
+      role: "스터디원",
+      organization: "삼성 청년 SW·AI 아카데미",
+      period: "2024.08 ~ 진행중",
+      description: "SSAFY 기간 중 다양한 스터디 활동 참여",
+      isGroup: true,
+      subActivities: [
+        {
+          title: "RTOS 개발 스터디",
+          period: "2024.10 ~ 2024.12",
+          description: "이만우님의 서적 \"임베디드 OS개발 프로젝트\"를 따라가며, RTOS \"Navilos\" 개발",
+          achievements: ["RTOS 핵심 개념 학습", "실제 OS 개발 경험", "주차별 진행상황 발표"]
+        },
+        {
+          title: "CS 스터디",
+          period: "2024.08 ~ 진행중",
+          description: "운영체제, 네트워크 필수 개념 주차 별 주제 학습 및 발표 세션 진행",
+          achievements: ["CS 핵심 개념 체계화", "발표 및 토론 능력 향상", "지식 공유 문화 조성"]
+        },
+        {
+          title: "알고리즘 스터디",
+          period: "2024.08 ~ 진행중",
+          description: "알고리즘 및 자료구조 개념 학습 및 문제 풀이",
+          achievements: ["알고리즘 문제 해결 능력 향상", "코딩테스트 대비", "동료들과의 코드 리뷰"]
+        }
+      ],
+      achievements: ["다양한 CS 분야 학습", "동료들과의 협업 경험", "발표 및 토론 능력 향상"]
+    },
+    {
+      id: 3,
+      type: "동아리",
+      icon: "users",
+      title: "교내 IT 동아리 CPU",
+      role: "임원",
+      organization: "수원대학교",
+      period: "2022.01 ~ 2024.02",
+      description: "임원으로 활동하여 동아리 운영 및 다양한 스터디를 운영하였습니다. C, Python, 알고리즘, 머신러닝 스터디를 진행하였습니다.",
+      achievements: ["동아리 운영 및 관리", "후배들과의 스터디 운영", "리더십 개발", "지식 공유 및 멘토링"]
+    },
+    {
+      id: 4,
+      type: "스터디",
+      icon: "book",
+      title: "대학 스터디 그룹",
+      role: "스터디원",
+      organization: "수원대학교 IT 동아리 CPU",
+      period: "2022.03 ~ 2023.12",
+      description: "대학 시절 다양한 분야의 스터디 활동 참여",
+      isGroup: true,
+      subActivities: [
+        {
+          title: "Python 스터디",
+          period: "2022.08 ~ 2023.12",
+          description: "파이썬 기초부터 웹 크롤링까지",
+          achievements: ["Python 기초 및 응용 학습", "웹 크롤링 프로젝트 수행", "팀 프로젝트 개발 경험"]
+        },
+        {
+          title: "알고리즘 스터디",
+          period: "2022.03 ~ 2023.12",
+          description: "백준, 프로그래머스 문제 해결. 주 2회 모임, 코드 리뷰 및 토론",
+          achievements: ["알고리즘 기초 개념 학습", "문제 해결 능력 향상", "코드 리뷰 문화 체험"]
+        },
+        {
+          title: "머신러닝 스터디",
+          period: "2022.12 ~ 2023.02",
+          description: "TensorFlow, scikit-learn 학습. 프로젝트 기반 실습 진행",
+          achievements: ["머신러닝 기초 개념 학습", "TensorFlow 활용 경험", "프로젝트 기반 실습 완료"]
+        }
+      ],
+      achievements: ["다양한 프로그래밍 분야 학습", "팀 프로젝트 경험", "동료들과의 지식 공유"]
+    },
+    {
+      id: 5,
+      type: "멘토링",
+      icon: "graduation-cap",
+      title: "전공 에프킬러",
+      role: "C언어 멘토",
+      organization: "수원대학교",
+      period: "2022.09 ~ 2022.10",
+      description: "C언어 멘토를 맡아 3명의 멘티를 담당하였습니다. 8회차의 멘토링을 통해 입문부터 함수 포인터까지 개념을 학습하였습니다.",
+      achievements: ["멘티 C언어 이해도 향상", "교육 역량 개발", "멘토링 스킬 향상"]
     }
   ],
 
