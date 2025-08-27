@@ -87,7 +87,7 @@ const HeroSection = () => {
   return (
     <section 
       id="hero" 
-      className="min-h-screen relative overflow-hidden bg-gradient-to-br from-background via-background to-muted/20"
+      className="min-h-screen relative overflow-hidden bg-gradient-to-br from-background via-background to-muted/20 pt-20 md:pt-32 lg:pt-[200px]"
       aria-label="메인 소개 섹션"
     >
       
@@ -140,11 +140,11 @@ const HeroSection = () => {
       ))}
 
       {/* 메인 콘텐츠 */}
-      <div className="relative z-10 max-w-6xl mx-auto px-4 h-screen flex items-center">
-        <div className="w-full grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+      <div className="relative z-10 max-w-6xl mx-auto px-4 min-h-[calc(100vh-5rem)] md:min-h-[calc(100vh-8rem)] lg:h-screen flex items-center py-8">
+        <div className="w-full grid lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center">
           
           {/* 왼쪽: 텍스트 콘텐츠 */}
-          <div className="space-y-8">
+          <div className="space-y-6 sm:space-y-8 mt-20 md:mt-32 lg:mt-[180px]">
             
             {/* 인사말 */}
             <motion.div
@@ -156,7 +156,7 @@ const HeroSection = () => {
               <p className="text-lg text-muted-foreground" role="text">
                 안녕하세요, 저는
               </p>
-              <h1 className="text-5xl md:text-7xl font-bold text-foreground">
+              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-foreground">
                 {personalData.name}
               </h1>
             </motion.div>
@@ -170,8 +170,9 @@ const HeroSection = () => {
               role="text"
               aria-live="polite"
               aria-label="직업 소개"
+              suppressHydrationWarning
             >
-              <h2 className="text-2xl md:text-3xl font-semibold text-primary leading-tight">
+              <h2 className="text-xl sm:text-2xl md:text-3xl font-semibold text-primary leading-tight">
                 {currentText}
                 <span 
                   className="animate-pulse" 
@@ -225,12 +226,12 @@ const HeroSection = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 1.2, ease: "easeOut" }}
-              className="flex flex-col sm:flex-row gap-4 pt-4"
+              className="flex flex-col sm:flex-row gap-3 sm:gap-4 pt-2 sm:pt-4"
             >
               <button
                 onClick={() => scrollToSection('portfolio')}
                 onKeyDown={(e) => handleKeyPress(e, () => scrollToSection('portfolio'))}
-                className="group px-8 py-4 bg-primary text-primary-foreground rounded-lg font-semibold text-lg hover:bg-primary/90 transition-all duration-300 hover:shadow-lg hover:shadow-primary/25 flex items-center justify-center space-x-2 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+                className="group px-6 sm:px-8 py-3 sm:py-4 bg-primary text-primary-foreground rounded-lg font-semibold text-base sm:text-lg hover:bg-primary/90 transition-all duration-300 hover:shadow-lg hover:shadow-primary/25 flex items-center justify-center space-x-2 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
                 aria-label="프로젝트 포트폴리오 섹션으로 이동"
               >
                 <span>프로젝트 보기</span>
@@ -246,7 +247,7 @@ const HeroSection = () => {
               <button
                 onClick={() => scrollToSection('contact')}
                 onKeyDown={(e) => handleKeyPress(e, () => scrollToSection('contact'))}
-                className="px-8 py-4 bg-transparent border-2 border-primary text-primary rounded-lg font-semibold text-lg hover:bg-primary hover:text-primary-foreground transition-all duration-300 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+                className="px-6 sm:px-8 py-3 sm:py-4 bg-transparent border-2 border-primary text-primary rounded-lg font-semibold text-base sm:text-lg hover:bg-primary hover:text-primary-foreground transition-all duration-300 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
                 aria-label="연락처 섹션으로 이동"
               >
                 연락하기

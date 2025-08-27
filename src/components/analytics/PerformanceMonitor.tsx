@@ -18,7 +18,7 @@ const PerformanceMonitor = () => {
     // Core Web Vitals 측정
     const measureCoreWebVitals = async () => {
       try {
-        if ('web-vitals' in window || typeof window !== 'undefined') {
+        if (typeof window !== 'undefined') {
           const { onCLS, onINP, onFCP, onLCP, onTTFB } = await import('web-vitals')
           
           const sendToAnalytics = (metric: WebVitalsMetric) => {

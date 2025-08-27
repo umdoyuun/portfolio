@@ -26,6 +26,7 @@ import {
   ChevronUp
 } from 'lucide-react'
 import { personalData } from '@/data/personal'
+import ProfileImage from '@/components/ui/ProfileImage'
 
 const AboutSection = () => {
   const [activeTab, setActiveTab] = useState('education')
@@ -408,15 +409,14 @@ const AboutSection = () => {
             className="lg:col-span-1"
           >
             {/* Profile Card */}
-            <Card className="overflow-hidden border-0 bg-gradient-to-br from-card/80 to-card/60 backdrop-blur-lg shadow-xl hover:shadow-2xl transition-all duration-500 h-[932px]">
+            <Card className="overflow-hidden border-0 bg-gradient-to-br from-card/80 to-card/60 backdrop-blur-lg shadow-xl hover:shadow-2xl transition-all duration-500 h-[1082px]">
               <CardContent className="p-0 h-full flex flex-col">
                 {/* Profile Photo Section */}
-                <div className="relative">
-                  <div className="h-72 bg-gradient-to-br from-primary/20 to-blue-500/20 flex items-center justify-center">
-                    <div className="w-32 h-32 bg-gradient-to-br from-primary to-blue-500 rounded-full flex items-center justify-center shadow-lg">
-                      <User className="h-16 w-16 text-white" />
-                    </div>
-                  </div>
+                <div className="relative h-[438px] w-full overflow-hidden bg-gradient-to-br from-slate-100 to-slate-200 dark:from-slate-800 dark:to-slate-900 border-b border-border">
+                  <ProfileImage
+                    src="/images/profile/avatar.jpg"
+                    alt={`${personalData.name} 프로필 사진`}
+                  />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
                   <div className="absolute bottom-6 left-6 right-6">
                     <h3 className="text-2xl font-bold text-white mb-2">{personalData.name}</h3>

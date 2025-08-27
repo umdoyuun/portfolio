@@ -84,99 +84,11 @@ const portfolioProjectsData = [
   }
 ]
 
-// 기존 프로젝트 데이터 (호환성 유지)
+// projectsData는 AboutSection에서 길이만 참조하므로 간소화
 const projectsData = [
-  {
-    id: 1,
-    title: "스마트 IoT 모니터링 시스템",
-    description: "ESP32와 다양한 센서를 활용한 실시간 환경 모니터링 시스템",
-    thumbnail: "/images/projects/project1-thumb.jpg",
-    images: [
-      "/images/projects/project1-1.jpg",
-      "/images/projects/project1-2.jpg", 
-      "/images/projects/project1-3.jpg"
-    ],
-    details: {
-      overview: "ESP32 기반으로 온도, 습도, 조도, 공기질 등을 실시간으로 모니터링하고 웹 대시보드에서 확인할 수 있는 IoT 시스템을 개발했습니다.",
-      teamSize: "4명",
-      role: "임베디드 개발 및 백엔드 개발",
-      duration: "3개월 (2024.09 ~ 2024.11)",
-      techStack: ["ESP32", "Arduino", "WiFi", "MQTT", "Node.js", "MongoDB", "React"],
-      features: [
-        "다중 센서 데이터 수집 및 전송",
-        "실시간 웹 대시보드",
-        "알람 및 임계값 설정",
-        "데이터 시각화 및 분석",
-        "모바일 반응형 UI"
-      ],
-      github: "https://github.com/umdoyuun/iot-monitoring",
-      reflection: "하드웨어부터 풀스택까지 전체 시스템을 구축하며 IoT 개발의 전 과정을 경험할 수 있었습니다. 특히 센서 데이터의 안정적인 수집과 실시간 통신의 중요성을 깨달았습니다."
-    },
-    category: "IoT",
-    featured: true,
-    status: "완료"
-  },
-  {
-    id: 2,
-    title: "임베디드 홈 오토메이션",
-    description: "Raspberry Pi 기반 스마트홈 제어 시스템",
-    thumbnail: "/images/projects/project2-thumb.jpg", 
-    images: [
-      "/images/projects/project2-1.jpg",
-      "/images/projects/project2-2.jpg",
-      "/images/projects/project2-3.jpg"
-    ],
-    details: {
-      overview: "Raspberry Pi를 중심으로 한 홈 오토메이션 시스템으로, 조명, 온도, 보안 등을 통합 제어할 수 있는 스마트홈 솔루션입니다.",
-      teamSize: "3명", 
-      role: "시스템 설계 및 임베디드 개발",
-      duration: "4개월 (2024.05 ~ 2024.08)",
-      techStack: ["Raspberry Pi", "Python", "GPIO", "Flask", "SQLite", "WebSocket"],
-      features: [
-        "음성 인식 기반 제어",
-        "모바일 앱 연동",
-        "일정 기반 자동화",
-        "에너지 사용량 모니터링",
-        "보안 알림 시스템"
-      ],
-      github: "https://github.com/umdoyuun/smart-home",
-      demo: "https://smarthome-demo.vercel.app",
-      reflection: "다양한 프로토콜과 디바이스들을 통합하는 과정에서 시스템 아키텍처 설계의 중요성을 배웠습니다. 사용자 경험을 고려한 인터페이스 설계에도 많은 신경을 썼습니다."
-    },
-    category: "스마트홈",
-    featured: true,
-    status: "완료"
-  },
-  {
-    id: 3,
-    title: "무선 센서 네트워크",
-    description: "LoRa 기반 장거리 무선 센서 네트워크 구축",
-    thumbnail: "/images/projects/project3-thumb.jpg",
-    images: [
-      "/images/projects/project3-1.jpg", 
-      "/images/projects/project3-2.jpg",
-      "/images/projects/project3-3.jpg"
-    ],
-    details: {
-      overview: "LoRa 통신을 활용하여 넓은 범위의 센서 데이터를 효율적으로 수집하는 무선 센서 네트워크 시스템을 구현했습니다.",
-      teamSize: "2명",
-      role: "네트워크 프로토콜 개발 및 펌웨어 구현", 
-      duration: "5개월 (2024.01 ~ 2024.05)",
-      techStack: ["Arduino", "LoRa", "ESP32", "C++", "Python", "MySQL"],
-      features: [
-        "장거리 무선 통신 (최대 10km)",
-        "저전력 센서 노드 설계", 
-        "메시 네트워크 토폴로지",
-        "데이터 암호화 및 보안",
-        "배터리 최적화"
-      ],
-      github: "https://github.com/umdoyuun/lora-sensor-network",
-      reflection: "무선 통신의 복잡성과 전력 관리의 중요성을 깊이 이해하게 되었습니다. 실제 환경에서의 테스트를 통해 이론과 실무의 차이를 경험했습니다."
-    },
-    category: "무선통신",
-    featured: true, 
-    status: "완료"
-  }
+  { id: 1, title: "스마트 IoT 모니터링 시스템" },
+  { id: 2, title: "임베디드 홈 오토메이션" },
+  { id: 3, title: "무선 센서 네트워크" }
 ]
 
 export const personalData = {
@@ -472,7 +384,7 @@ export const personalData = {
     ]
   },
 
-  // 관심 분야
+  // 관심 분야 (사용되지 않음 - 제거 고려)
   interests: [
     "IoT 시스템 설계",
     "임베디드 AI/머신러닝", 

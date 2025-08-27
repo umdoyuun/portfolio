@@ -164,14 +164,16 @@ export default function RootLayout({
         <link rel="manifest" href="/site.webmanifest" />
         <link rel="canonical" href="https://portfolio-doyun.vercel.app" />
         
-        {/* Preload critical fonts */}
-        <link
-          rel="preload"
-          href="/_next/static/media/inter-latin.woff2"
-          as="font"
-          type="font/woff2"
-          crossOrigin="anonymous"
-        />
+        {/* Preload critical fonts - 개발 환경에서 비활성화 */}
+        {process.env.NODE_ENV === 'production' && (
+          <link
+            rel="preload"
+            href="/_next/static/media/inter-latin.woff2"
+            as="font"
+            type="font/woff2"
+            crossOrigin="anonymous"
+          />
+        )}
         
         {/* Structured Data */}
         <script
